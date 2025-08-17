@@ -1,0 +1,15 @@
+.container {
+  max-width: 480px;
+  margin: 36px auto;
+  padding: 0 16px;
+}
+
+.full {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

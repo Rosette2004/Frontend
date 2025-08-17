@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './components/navbar/navbar';
+import { Navbar } from './components/navbar/navbar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, Navbar],
   template: `
     <app-navbar></app-navbar>
     <main class="p-4">
@@ -13,4 +13,4 @@ import { NavbarComponent } from './components/navbar/navbar';
     </main>
   `,
 })
-export class AppComponent {}
+export class App {}

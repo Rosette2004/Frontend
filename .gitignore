@@ -42,7 +42,3 @@ testem.log
 Thumbs.db
 
 
-# NOTE 
-src/app/components/
-src/app/pages/
-src/styles.scss

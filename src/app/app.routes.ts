@@ -1,18 +1,18 @@
 import { provideRouter, Route } from '@angular/router';
 import { HomeComponent } from './pages/home/home';
-import { RecipesComponent } from './pages/recipes/recipes';
-import { RecipeDetailComponent } from './pages/recipe-detail/recipe-detail';
-import { RecipeFormComponent } from './pages/recipe-form/recipe-form';
-import { LoginComponent } from './pages/login/login';
+import { Recipes } from './pages/recipes/recipes';
+import { RecipeDetail } from './pages/recipe-detail/recipe-detail';
+import { RecipeForm } from './pages/recipe-form/recipe-form';
+import { Login } from './pages/login/login';
 import { SignupComponent } from './pages/signup/signup';
 
 export const routes: Route[] = [
   { path: '', component: HomeComponent },
-  { path: 'recipes', component: RecipesComponent },
-  { path: 'recipes/new', component: RecipeFormComponent },
-  { path: 'recipes/edit/:id', component: RecipeFormComponent },
-  { path: 'recipes/:id', component: RecipeDetailComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'recipes', component: Recipes },
+  { path: 'recipes/new', component: RecipeForm },
+  { path: 'recipes/edit/:id', component: RecipeForm },
+  { path: 'recipes/:id', component: RecipeDetail },
+  { path: 'login', component: Login },
   { path: 'signup', component: SignupComponent },
   { path: '**', redirectTo: '' },
 ];

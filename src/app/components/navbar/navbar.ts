@@ -48,7 +48,7 @@ import { MatIconModule } from '@angular/material/icon';
     `,
   ],
 })
-export class NavbarComponent {
+export class Navbar {
   constructor(public auth: AuthService, private router: Router) {}
   logout() {
     this.auth.logout();

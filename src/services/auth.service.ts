@@ -7,12 +7,28 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   constructor(private api: ApiService, private router: Router) {}
 
-  signup(email: string, password: string) {
-    return this.api.post<any>('/signUp', { email, password }).pipe(
-      tap((res) => {
-        if (res?.token) localStorage.setItem('token', res.token);
+  signup(
+    // name: string,
+    email: string,
+    // photo: string,
+    password: string
+    // confirmPassword: string
+  ) {
+    return this.api
+      .post<any>('/signUp', {
+        // name,
+        email,
+        // photo,
+        password,
+        // confirmPassword,
       })
-    );
+      .pipe(
+        tap((res) => {
+          if (res?.token) {
+            localStorage.setItem('token', res.token);
+          }
+        })
+      );
   }
 
   login(email: string, password: string) {
