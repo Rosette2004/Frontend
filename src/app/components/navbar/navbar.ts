@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
       <span class="spacer"></span>
 
       <a mat-button routerLink="/recipes">Recipes</a>
-      <a mat-button routerLink="/recipes/new">Add Recipe</a>
+      <button mat-button (click)="goToRecipeForm()">Add Recipe</button>
 
       <ng-container *ngIf="!auth.isLoggedIn(); else loggedIn">
         <a mat-button routerLink="/login">Login</a>
@@ -53,5 +53,13 @@ export class Navbar {
   logout() {
     this.auth.logout();
     this.router.navigate(['/login']);
+  }
+  goToRecipeForm() {
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate(['/recipe-form']); // or '/recipes/new' depending on your route
+    } else {
+      alert('You have to sign in or sign up first!');
+      this.router.navigate(['/login']);
+    }
   }
 }

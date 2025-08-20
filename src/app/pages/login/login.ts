@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    RouterLink,
   ],
   template: `
     <div class="container">
@@ -63,7 +65,7 @@ import { MatButtonModule } from '@angular/material/button';
     `,
   ],
 })
-export class Login {
+export class LoginComponent {
   email = '';
   password = '';
   constructor(private auth: AuthService, private router: Router) {}

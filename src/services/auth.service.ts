@@ -7,28 +7,16 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   constructor(private api: ApiService, private router: Router) {}
 
-  signup(
-    // name: string,
-    email: string,
-    // photo: string,
-    password: string
-    // confirmPassword: string
-  ) {
-    return this.api
-      .post<any>('/signUp', {
-        // name,
-        email,
-        // photo,
-        password,
-        // confirmPassword,
+  signup(name: string, email: string, photo: File | null, password: string) {
+    const body = { name, email, password, photo };
+
+    return this.api.post<any>('/signup', body).pipe(
+      tap((res) => {
+        if (res?.token) {
+          localStorage.setItem('token', res.token);
+        }
       })
-      .pipe(
-        tap((res) => {
-          if (res?.token) {
-            localStorage.setItem('token', res.token);
-          }
-        })
-      );
+    );
   }
 
   login(email: string, password: string) {
@@ -47,6 +35,7 @@ export class AuthService {
   isLoggedIn() {
     return !!localStorage.getItem('token');
   }
+
   saveToken(token: string) {
     localStorage.setItem('token', token);
   }

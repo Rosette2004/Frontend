@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-recipes',
@@ -12,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     MatCardModule,
     MatButtonModule,
     MatProgressSpinnerModule,
@@ -25,6 +28,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         </button>
       </div>
 
+      <!-- 🔎 Search Bar -->
+      <div class="search">
+        <input
+          type="text"
+          placeholder="Search recipes..."
+          [(ngModel)]="searchTerm"
+          (input)="load()"
+        />
+      </div>
+
       <div *ngIf="loading" class="center"><mat-spinner></mat-spinner></div>
 
       <div class="recipe-grid">
@@ -35,8 +48,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
           <img
             mat-card-image
             *ngIf="r.coverImage"
-            [src]="r.coverImage"
-            alt="{{ r.title }}"
+            [src]="
+              r.coverImage.startsWith('/uploads/')
+                ? baseUrl + r.coverImage
+                : baseUrl + '/uploads/' + r.coverImage
+            "
           />
           <mat-card-title>{{ r.title }}</mat-card-title>
           <mat-card-content>
@@ -74,6 +90,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         align-items: center;
         margin-bottom: 16px;
       }
+      .search {
+        margin-bottom: 16px;
+      }
       .recipe-grid {
         display: flex;
         flex-wrap: wrap;
@@ -104,13 +123,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class Recipes implements OnInit {
   recipes: any[] = [];
   loading = false;
+  searchTerm = '';
+  baseUrl = environment.apiUrl; // 👈 prepend this
   constructor(private rs: RecipeService, private router: Router) {}
   ngOnInit() {
     this.load();
   }
   load() {
     this.loading = true;
-    this.rs.getAll().subscribe({
+    this.rs.getAll(this.searchTerm).subscribe({
       next: (r) => {
         this.recipes = r || [];
         this.loading = false;

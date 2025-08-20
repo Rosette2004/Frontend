@@ -26,40 +26,59 @@ export class Home {
 }
 
 */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Footer } from '../../shared/footer/footer';
-import { NgFor } from '@angular/common'; // ✅ Fix for *ngFor
+import { NgFor } from '@angular/common';
 // import { HeaderBarComponent } from '../../shared/header-bar/header-bar.component';  // adjust path
-import { MatIconModule } from '@angular/material/icon'; // ✅ For <mat-icon>// ✅ adjust path
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
-  standalone: true, // ✅ make sure it's standalone
+  standalone: true,
   imports: [
     NgFor,
     // HeaderBarComponent, s
     Footer,
     MatIconModule,
+    RouterLink,
   ],
 })
 export class Home {
   featuredRecipes = [
     {
+      id: 1,
       title: 'Creamy Shrimp Fettuccine',
       author: 'Anna',
       image: 'assets/recipes/shrimpp.jpg',
     },
     {
+      id: 2,
       title: 'Chicken Curry',
       author: 'Mohamed',
       image: 'assets/recipes/curry.jpg',
     },
     {
+      id: 3,
       title: 'Chocolate Cake',
       author: 'Sophia',
       image: 'assets/recipes/cake.jpg',
     },
   ];
+  stats = { recipes: 1240, collections: 86, users: 312 };
 }
+
+// constructor(private http: HttpClient) {}
+
+//   ngOnInit() {
+//     this.http
+//       .get<{ count: number }>('/recipe/count')
+//       .subscribe((r) => (this.stats.recipes = r.count));
+//     this.http
+//       .get<{ count: number }>('/api/users/count')
+//       .subscribe((r) => (this.stats.users = r.count));
+//   }
+// }

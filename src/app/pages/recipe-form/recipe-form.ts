@@ -59,14 +59,27 @@ import { MatButtonModule } from '@angular/material/button';
           />
         </mat-form-field>
 
-        <mat-form-field class="full">
+        <!-- Cover Image File Upload -->
+        <div class="file-upload">
           <input
-            matInput
-            placeholder="Cover Image URL"
-            [(ngModel)]="form.coverImage"
-            name="coverImage"
+            type="file"
+            #fileInput
+            (change)="onFileSelected($event)"
+            accept="image/*"
+            hidden
           />
-        </mat-form-field>
+          <button
+            mat-raised-button
+            color="accent"
+            type="button"
+            (click)="fileInput.click()"
+          >
+            Upload Image
+          </button>
+          <span class="file-name" *ngIf="selectedFile">{{
+            selectedFile.name
+          }}</span>
+        </div>
 
         <div class="actions">
           <button mat-raised-button color="primary" type="submit">
@@ -80,9 +93,17 @@ import { MatButtonModule } from '@angular/material/button';
   styles: [
     `
       .container {
-        max-width: 700px;
-        margin: 20px auto;
-        padding: 0 16px;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 24px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 500;
       }
       .full {
         width: 100%;
@@ -90,12 +111,14 @@ import { MatButtonModule } from '@angular/material/button';
       .form {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
       }
+
       .actions {
         display: flex;
-        gap: 8px;
-        margin-top: 8px;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 20px;
       }
     `,
   ],
@@ -111,6 +134,7 @@ export class RecipeForm implements OnInit {
   };
   ingredientsRaw = '';
   id?: string;
+  selectedFile?: File;
 
   constructor(
     private rs: RecipeService,
@@ -128,19 +152,32 @@ export class RecipeForm implements OnInit {
       });
     }
   }
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
 
   save() {
     this.form.ingredients = this.ingredientsRaw
       .split(',')
       .map((s: string) => s.trim())
       .filter((s: string) => s);
+
+    const formData = new FormData();
+    formData.append('title', this.form.title);
+    formData.append('instructions', this.form.instructions);
+    formData.append('ingredients', this.form.ingredients.join(','));
+    formData.append('time', this.form.time || '');
+    if (this.selectedFile) {
+      formData.append('coverImage', this.selectedFile);
+    }
+
     if (this.isEdit) {
       this.rs
-        .update(this.id!, this.form)
+        .update(this.id!, formData)
         .subscribe(() => this.router.navigate(['/recipes']));
     } else {
       this.rs
-        .create(this.form)
+        .create(formData)
         .subscribe(() => this.router.navigate(['/recipes']));
     }
   }

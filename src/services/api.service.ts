@@ -22,15 +22,36 @@ export class ApiService {
     });
   }
   post<T>(path: string, body: any): Observable<T> {
-    return this.http.post<T>(`${this.base}${path}`, body, {
-      headers: this.getHeaders(),
-    });
+    const token = localStorage.getItem('token');
+    let headers = new HttpHeaders();
+
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    // If body is NOT FormData → JSON
+    if (!(body instanceof FormData)) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
+
+    return this.http.post<T>(`${this.base}${path}`, body, { headers });
   }
+
   put<T>(path: string, body: any): Observable<T> {
-    return this.http.put<T>(`${this.base}${path}`, body, {
-      headers: this.getHeaders(),
-    });
+    const token = localStorage.getItem('token');
+    let headers = new HttpHeaders();
+
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    if (!(body instanceof FormData)) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
+
+    return this.http.put<T>(`${this.base}${path}`, body, { headers });
   }
+
   delete<T>(path: string): Observable<T> {
     return this.http.delete<T>(`${this.base}${path}`, {
       headers: this.getHeaders(),

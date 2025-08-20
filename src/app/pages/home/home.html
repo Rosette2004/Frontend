@@ -10,24 +10,21 @@
         Save your favorite recipes, plan meals, and share with home cooks around
         the world.
       </p>
-      <button mat-raised-button color="primary" routerLink="/recipes">
-        Browse Recipes
-      </button>
     </div>
   </section>
 
   <!-- Stats -->
   <section class="stats">
     <div class="stat-card">
-      <h2>1240</h2>
+      <h2>{{ stats.recipes }}</h2>
       <p>Recipes</p>
     </div>
     <div class="stat-card">
-      <h2>86</h2>
+      <h2>{{ stats.collections }}</h2>
       <p>Collections</p>
     </div>
     <div class="stat-card">
-      <h2>312</h2>
+      <h2>{{ stats.users }}</h2>
       <p>Home Cooks</p>
     </div>
   </section>
@@ -79,7 +76,11 @@
       <a mat-button color="primary" routerLink="/recipes">View All</a>
     </div>
     <div class="recipes__grid">
-      <div class="recipe-card" *ngFor="let recipe of featuredRecipes">
+      <div
+        class="recipe-card"
+        *ngFor="let recipe of featuredRecipes"
+        [routerLink]="['/recipes', recipe.id]"
+      >
         <img [src]="recipe.image" alt="{{ recipe.title }}" />
         <div class="recipe-card__content">
           <h3>{{ recipe.title }}</h3>

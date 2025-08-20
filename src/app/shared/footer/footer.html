@@ -1,1 +1,33 @@
-<p>footer works!</p>
+<footer class="footer">
+  <div class="footer__content">
+    <div class="footer__brand">
+      <h3>Recipe Manager</h3>
+      <p>Your personal kitchen companion.</p>
+    </div>
+
+    <nav class="footer__links">
+      <a routerLink="/recipes">Recipes</a>
+      <a routerLink="/login">Login</a>
+      <a routerLink="/signup">Sign Up</a>
+    </nav>
+
+    <div class="footer__social">
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/YOUR_USERNAME" target="_blank">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="https://www.facebook.com/rozet.roze.9" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/rosetteatteya/" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <p>&copy; {{ currentYear }} Recipe Manager. All rights reserved.</p>
+  </div>
+</footer>
