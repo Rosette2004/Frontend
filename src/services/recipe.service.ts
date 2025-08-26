@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
-  constructor(private api: ApiService) {}
+  constructor(public api: ApiService) {}
 
   // getAll(): Observable<Recipe[]> {
   //   return this.api.get<Recipe[]>('/recipe/');
@@ -17,6 +17,12 @@ export class RecipeService {
   }
   getById(id: string) {
     return this.api.get<Recipe>(`/recipe/${id}`);
+  }
+  getCounts() {
+    return this.api.get<{ count: number }>('/recipe/count');
+  }
+  getFeatured() {
+    return this.api.get<Recipe[]>('/recipe/featured');
   }
   create(data: Partial<Recipe> | FormData) {
     return this.api.post<Recipe>('/recipe/', data);

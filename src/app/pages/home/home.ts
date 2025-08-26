@@ -33,6 +33,8 @@ import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { RecipeService } from '../../../services/recipe.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -47,6 +49,26 @@ import { HttpClient } from '@angular/common/http';
     RouterLink,
   ],
 })
+export class Home implements OnInit {
+  stats = { recipes: 0, collections: 0, users: 0 };
+
+  constructor(
+    private recipeService: RecipeService,
+    private userService: UserService
+  ) {}
+
+  ngOnInit() {
+    // Load stats
+    this.recipeService
+      .getCounts()
+      .subscribe((r) => (this.stats.recipes = r.count));
+    this.userService.getCounts().subscribe((u) => (this.stats.users = u.count));
+    this.recipeService.api
+      .get<{ count: number }>('/recipe/collections/count')
+      .subscribe((c) => (this.stats.collections = c.count));
+  }
+}
+/* NOTE
 export class Home {
   featuredRecipes = [
     {
@@ -70,7 +92,7 @@ export class Home {
   ];
   stats = { recipes: 1240, collections: 86, users: 312 };
 }
-
+*/
 // constructor(private http: HttpClient) {}
 
 //   ngOnInit() {

@@ -5,6 +5,7 @@ import { RecipeDetail } from './pages/recipe-detail/recipe-detail';
 import { RecipeForm } from './pages/recipe-form/recipe-form';
 import { LoginComponent } from './pages/login/login';
 import { SignupComponent } from './pages/signup/signup';
+import { Collections } from './pages/collections/collections';
 
 export const routes: Route[] = [
   { path: '', component: Home },
@@ -15,6 +16,7 @@ export const routes: Route[] = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: '**', redirectTo: '' },
+  { path: 'collections', component: Collections },
 ];
 
 // export const appRoutes = provideRouter(routes);

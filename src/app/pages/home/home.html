@@ -19,10 +19,7 @@
       <h2>{{ stats.recipes }}</h2>
       <p>Recipes</p>
     </div>
-    <div class="stat-card">
-      <h2>{{ stats.collections }}</h2>
-      <p>Collections</p>
-    </div>
+
     <div class="stat-card">
       <h2>{{ stats.users }}</h2>
       <p>Home Cooks</p>
@@ -44,51 +41,19 @@
     <h2>Features You’ll Love</h2>
     <div class="features__grid">
       <div class="feature">
-        <mat-icon>folder</mat-icon>
-        <h3>Recipe Collections</h3>
-        <p>Group recipes into “Weeknight Meals”, “Meal Prep”, or “Desserts”.</p>
-      </div>
-      <div class="feature">
         <mat-icon>lock</mat-icon>
         <h3>Secure & Private</h3>
-        <p>
-          Your recipes are stored safely and are only visible to you unless you
-          share them.
-        </p>
+        <p>Your recipes are stored safely and are only visible to you.</p>
       </div>
       <div class="feature">
         <mat-icon>search</mat-icon>
         <h3>Search Recipes</h3>
-        <p>Quickly find recipes by ingredients, tags, or meal type.</p>
-      </div>
-      <div class="feature">
-        <mat-icon>people</mat-icon>
-        <h3>Community</h3>
-        <p>Discover new ideas and share with home cooks worldwide.</p>
+        <p>Quickly find recipes by name.</p>
       </div>
     </div>
   </section>
 
   <!-- Featured Recipes -->
-  <section class="featured">
-    <div class="featured__head">
-      <h2>Featured Recipes</h2>
-      <a mat-button color="primary" routerLink="/recipes">View All</a>
-    </div>
-    <div class="recipes__grid">
-      <div
-        class="recipe-card"
-        *ngFor="let recipe of featuredRecipes"
-        [routerLink]="['/recipes', recipe.id]"
-      >
-        <img [src]="recipe.image" alt="{{ recipe.title }}" />
-        <div class="recipe-card__content">
-          <h3>{{ recipe.title }}</h3>
-          <p>By {{ recipe.author }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <app-footer></app-footer>

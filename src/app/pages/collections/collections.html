@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>My Collections</h2>
+
+  <div *ngIf="collections.length === 0">
+    <p>No collections yet.</p>
+  </div>
+
+  <div *ngFor="let c of collections" class="collection-card">
+    <h3>{{ c.name }}</h3>
+    <p>{{ c.description }}</p>
+    <p><strong>Recipes:</strong> {{ c.recipes?.length || 0 }}</p>
+  </div>
+</div>
